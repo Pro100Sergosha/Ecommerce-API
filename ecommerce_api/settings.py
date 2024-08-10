@@ -31,7 +31,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
-SITE_ID = 1
+SITE_ID = 2
 
 # Application definition
 
