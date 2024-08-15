@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 class Image(models.Model):
     image = models.ImageField()
@@ -102,3 +103,14 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField()
     date_added = models.DateField()
     more_info = models.ForeignKey(MoreInfo, on_delete=models.CASCADE, blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.title}'
+
+@receiver(pre_save, sender=Product)
+def set_stock_status(sender, instance, **kwargs):
+    if instance.quantity > 0:
+        instance.stock = 'in stock'
+    else:
+        instance.stock = 'out of stock'
+    

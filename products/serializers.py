@@ -70,6 +70,7 @@ class ProductSerializer(WritableNestedModelSerializer):
     additional_images = ImageSerializer(many = True)
     image = ImageSerializer(read_only=True)
     color = ColorSerializer(read_only=True)
+    stock = serializers.CharField(read_only=True)
     class Meta:
         model = Product
         fields = '__all__'
@@ -79,17 +80,12 @@ class ProductSerializer(WritableNestedModelSerializer):
 
 class BuyProductSerializer(WritableNestedModelSerializer):
     buy_quantity = serializers.IntegerField(write_only = True, required = True)
-    more_info = MoreInfoSerializer(read_only=True)
-    color_options = ColorSerializer(read_only=True)
-    additional_images = ImageSerializer(many = True)
-    image = ImageSerializer(read_only=True)
-    color = ColorSerializer(read_only=True)
+    more_info = MoreInfoSerializer(read_only=True, required = False)
+    color_options = ColorSerializer(read_only=True, required = False)
+    additional_images = ImageSerializer(read_only=True,many = True, required = False)
+    image = ImageSerializer(read_only=True, required = False)
+    color = ColorSerializer(read_only=True, required = False)
     class Meta:
         model = Product
         fields = '__all__'
-
-    def update(self, instance, validated_data):
-        buy_quantity = validated_data.get('buy_quantity', 0)
-        # instance.quantity -= buy_quantity
-        instance.save()
-        return instance
+        read_only_fields = ['stock']
