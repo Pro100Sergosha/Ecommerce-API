@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import *
+from users.models import CustomUser
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -12,8 +13,6 @@ from drf_yasg import openapi
 class ProductViewset(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # permission_classes = [IsAuthenticated]
-
     @swagger_auto_schema(
         method='post',
         operation_description="Buy product (Data must be send in the list of dictionaries, or an error occurs)",
@@ -32,6 +31,26 @@ class ProductViewset(ModelViewSet):
             status.HTTP_405_METHOD_NOT_ALLOWED: 'Method Not Allowed'
         }
     )
+    @action(detail=False, methods=['post', 'get'], url_path='cart')
+    def add_product(self, request, *args, **kwargs):
+        if request.method == 'GET' and request.user.is_authenticated:
+            user = CustomUser.objects.get(id=request.user.id)
+            products = user.products.all()
+            serializer = ProductSerializer(products, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        elif request.method == 'POST' and request.user.is_authenticated:
+            user = request.user
+            try:
+                product = Product.objects.get(pk=request.data['id'])
+            except Product.DoesNotExist:
+                return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            user.products.add(product)
+            user.save()
+
+            return Response({'success': 'Product added to cart'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Not allowed'}, status=status.HTTP_403_FORBIDDEN)
     @action(detail=False, methods=['post', 'get'], url_path='buy-product')
     def buy_product(self, request, *args, **kwargs):
         if request.method == 'GET':
@@ -77,6 +96,7 @@ class ProductViewset(ModelViewSet):
 
 
 
+
 class VideoViewset(ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
@@ -84,9 +104,7 @@ class VideoViewset(ModelViewSet):
 class ColorViewset(ModelViewSet):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
-    permission_classes = [IsAuthenticated]
 
 class ImageViewset(ModelViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-    permission_classes = [IsAuthenticated]

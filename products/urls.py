@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ProductViewset, ImageViewset, ColorViewset, VideoViewset
+from .views import *
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

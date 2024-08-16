@@ -58,13 +58,13 @@ class BatteryInfoSerializer(WritableNestedModelSerializer):
         fields = '__all__'
     
 class MoreInfoSerializer(WritableNestedModelSerializer):
-    technical_info = TechnicalInfoSerializer(required = False)
-    size_weight = SizeWeightInfoSerializer(required = False)
-    screen_info = ScreenInfoSerializer(required = False)
-    memory_info = MemoryInfoSerializer(required = False)
-    camera_info = CameraInfoSerializer(required = False)
-    ports_info = PortsInfoSerializer(required = False)
-    battery_info = BatteryInfoSerializer(required = False)
+    technical_info = TechnicalInfoSerializer()
+    size_weight = SizeWeightInfoSerializer()
+    screen_info = ScreenInfoSerializer()
+    memory_info = MemoryInfoSerializer()
+    camera_info = CameraInfoSerializer()
+    ports_info = PortsInfoSerializer()
+    battery_info = BatteryInfoSerializer()
     class Meta:
         model = MoreInfo
         fields = '__all__'
