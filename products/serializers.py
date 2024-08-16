@@ -72,12 +72,12 @@ class MoreInfoSerializer(WritableNestedModelSerializer):
 
 class ProductSerializer(WritableNestedModelSerializer):
     buy_quantity = serializers.IntegerField(write_only = True, required = False)
-    more_info = MoreInfoSerializer(read_only=True)
-    color_options = ColorSerializer(read_only=True)
+    more_info = MoreInfoSerializer()
+    color_options = ColorSerializer(many = True)
     additional_images = ImageSerializer(many = True)
-    image = ImageSerializer(read_only=True)
-    color = ColorSerializer(read_only=True)
-    stock = serializers.CharField(read_only=True)
+    image = ImageSerializer()
+    color = ColorSerializer()
+    stock = serializers.CharField()
     class Meta:
         model = Product
         fields = '__all__'
