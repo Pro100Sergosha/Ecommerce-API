@@ -2,8 +2,14 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=255)
+    video = models.FileField(upload_to='videos/')
+
 class Image(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(upload_to='images/')
 
 class Color(models.Model):
     name = models.CharField(max_length=255)
@@ -113,4 +119,3 @@ def set_stock_status(sender, instance, **kwargs):
         instance.stock = 'in stock'
     else:
         instance.stock = 'out of stock'
-    

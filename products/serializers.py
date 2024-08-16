@@ -4,6 +4,13 @@ from .models import *
 
 
 
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'
+
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
@@ -85,6 +92,7 @@ class BuyProductSerializer(WritableNestedModelSerializer):
     additional_images = ImageSerializer(read_only=True,many = True, required = False)
     image = ImageSerializer(read_only=True, required = False)
     color = ColorSerializer(read_only=True, required = False)
+    
     class Meta:
         model = Product
         fields = '__all__'

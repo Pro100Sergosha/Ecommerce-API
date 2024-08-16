@@ -3,8 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import ProductSerializer, ImageSerializer, ColorSerializer, BuyProductSerializer
-from .models import Product, Image, Color
+from .serializers import *
+from .models import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -77,7 +77,9 @@ class ProductViewset(ModelViewSet):
 
 
 
-
+class VideoViewset(ModelViewSet):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
 
 class ColorViewset(ModelViewSet):
     queryset = Color.objects.all()
