@@ -4,15 +4,15 @@ Welcome to the Ecommerce API project! This API serves as the backend for an e-co
 
 ## Table of Contents
 
-#### [Functionality](funcionality)
+#### [Functionality](#funcionality)
 
-#### [Advantages](advantages)
+#### [Advantages](#advantages)
 
-#### [Installation](installation)
+#### [Installation](#installation)
 
-#### [Usage](usage)
+#### [Usage](#usage)
 
-#### [Contact](contact)
+#### [Contact](#contact)
 
 ## Functionality:
 
