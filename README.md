@@ -12,7 +12,7 @@ Welcome to the Ecommerce API project! This API serves as the backend for an e-co
 
 #### [API Endpoints](#api-endpoints)
 
-#### [Contact](#Contact)
+#### [Contact](#contact)
 
 ## Functionality:
 
