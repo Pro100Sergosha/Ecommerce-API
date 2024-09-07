@@ -81,7 +81,7 @@ class ProductSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-        extra_kwargs = {
+        extra_kwargs = { 
             'more_info': {'required': False},
         }
 
